@@ -3,11 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    </GridView>
+        <GridView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/field_grid_view"
+            android:columnWidth="90dp"
+            android:stretchMode="columnWidth"
+            android:gravity="center"
+            android:numColumns="auto_fit"
+            android:verticalSpacing="2dp"
+            android:horizontalSpacing="2dp">
+
+
+            </GridView>
+
 
 </RelativeLayout>
