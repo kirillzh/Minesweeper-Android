@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Functionality {
 
-    private static int columns = 8, rows = 8, bombs = 10;
+    public static int columns = 8, rows = 8, bombs = 10;
     private static int EMPTY_CELL_VALUE = 0, BOMB_VALUE = 9;
 
 

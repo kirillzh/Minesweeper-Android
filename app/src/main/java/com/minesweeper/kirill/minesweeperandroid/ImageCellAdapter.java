@@ -19,7 +19,7 @@ public class ImageCellAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return 64;
+        return Functionality.rows * Functionality.columns;
     }
 
     public Object getItem(int position) {
