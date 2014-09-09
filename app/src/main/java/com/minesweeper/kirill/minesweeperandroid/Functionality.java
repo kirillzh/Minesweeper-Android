@@ -12,14 +12,11 @@ public class Functionality {
     private static int EMPTY_CELL_VALUE = 0, BOMB_VALUE = 9;
 
 
-
     public static void main(String[] args) {
         int[][] matrix = generateBoard(rows, columns, bombs);
         //placeNumbers(matrix);
         printMatrix(matrix);
     }
-
-
 
     public static int[][] generateBoard(int rows, int columns, int bombs) {
         int[][] matrix = new int[rows][columns];
@@ -57,8 +54,6 @@ public class Functionality {
             }
         }
     }
-
-
 
 //    private static int checkCenter(int[][] matrix, int x, int y) {
 //        return (matrix[x][y] == BOMB_VALUE) ? 1 : 0;
@@ -119,7 +114,5 @@ public class Functionality {
         else
             return EMPTY_CELL_VALUE;
     }
-
-
 
 }
