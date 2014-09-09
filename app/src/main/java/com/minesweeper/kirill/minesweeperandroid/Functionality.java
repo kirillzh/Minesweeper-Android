@@ -55,44 +55,72 @@ public class Functionality {
     }
 
     public static void placeNumbers(int[][] matrix) {
-
+        for(int x = 0; x < matrix[0].length; x++) {
+            for(int y = 0; y < matrix.length; y++) {
+                matrix[x][y] = checkCell(matrix, x, y);
+            }
+        }
     }
 
 
 
-    private static boolean checkCell(int[][] matrix, int x, int y) {
-        return matrix[x][y] == BOMB_VALUE;
+//    private static int checkCenter(int[][] matrix, int x, int y) {
+//        return (matrix[x][y] == BOMB_VALUE) ? 1 : 0;
+//    }
+
+    private static int checkTop(int[][] matrix, int x, int y) {
+        return (matrix[x][y-1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkTop(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkTopRight(int[][] matrix, int x, int y) {
+        return (matrix[x-1][y+1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkTopRight(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkRight(int[][] matrix, int x, int y) {
+        return (matrix[x+1][y] == BOMB_VALUE) ? 1 : 0;
+    }
+    private static int checkBottomRight(int[][] matrix, int x, int y) {
+        return (matrix[x+1][y+1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkRight(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
-    }
-    private static boolean checkBootomRight(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkBottom(int[][] matrix, int x, int y) {
+        return (matrix[x][y+1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkBottom(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkBottomLeft(int[][] matrix, int x, int y) {
+        return (matrix[x-1][y+1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkBottomLeft(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkLeft(int[][] matrix, int x, int y) {
+        return (matrix[x-1][y] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkLeft(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkTopLeft(int[][] matrix, int x, int y) {
+        return (matrix[x-1][y-1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static boolean checkTopLeft(int[][] matrix, int x, int y) {
-        return matrix[x-1][y] == BOMB_VALUE;
+    private static int checkCell(int[][] matrix, int x, int y) {
+
+        if(x == 0 && y == 0)
+            return (checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y));
+        else if(x > 0 && x <columns && y == 0)
+            return (checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y));
+        else if(x == columns && y == 0)
+            return (checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y));
+        else if(x == columns && y > 0 && y < rows)
+            return (checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y) + checkTopLeft(matrix, x, y) + checkTop(matrix, x, y));
+        else if(x == columns && y == rows)
+            return (checkLeft(matrix, x, y) + checkTopLeft(matrix, x, y) + checkTop(matrix, x, y));
+        else if(x > 0 && x < columns && y == rows)
+            return (checkLeft(matrix, x, y) + checkTopLeft(matrix, x, y) + checkTop(matrix, x, y) + checkTopRight(matrix, x, y) + checkRight(matrix, x, y));
+        else if(x == 0 && y == rows)
+            return (checkTop(matrix, x, y) + checkTopRight(matrix, x, y) + checkRight(matrix, x, y));
+        else if(x == 0 && y > 0 && y < rows)
+            return (checkTop(matrix, x, y) + checkTopRight(matrix, x, y) + checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y));
+        else if(x > 0 && x < columns && y > 0 && y < rows)
+            return (checkTop(matrix, x, y) + checkTopRight(matrix, x, y) + checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y) + checkTopLeft(matrix, x, y));
+        else
+            return 0;
     }
 
 
