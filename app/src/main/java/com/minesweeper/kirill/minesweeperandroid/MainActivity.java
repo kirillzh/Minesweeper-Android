@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 
@@ -19,6 +21,13 @@ public class MainActivity extends Activity {
 
         GridView fieldGridView = (GridView) findViewById(R.id.field_grid_view);
         fieldGridView.setAdapter(new ImageCellAdapter(this));
+
+        fieldGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+
+            }
+        });
     }
 
     @Override
