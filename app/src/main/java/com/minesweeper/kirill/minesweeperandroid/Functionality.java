@@ -8,45 +8,39 @@ import java.util.Random;
  */
 public class Functionality {
 
-    private static int columns = 8;
-    private static int rows = 8;
+    private static int columns = 8, rows = 8, bombs = 10;
     private static int EMPTY_CELL_VALUE = 0, BOMB_VALUE = 9;
 
 
 
     public static void main(String[] args) {
-        int[][] matrix = createEmptyMatrix(rows, columns);
-        placeRandomBombs(matrix);
+        int[][] matrix = generateBoard(rows, columns, bombs);
+        //placeNumbers(matrix);
         printMatrix(matrix);
     }
 
-    public static int[][] createEmptyMatrix(int rows, int columns) {
-        int[][] matrix = new int[rows][columns];
-        for(int x = 0; x < matrix[0].length; x++) {
-            for(int y = 0; y < matrix.length; y++) {
-                matrix[x][y] = EMPTY_CELL_VALUE;
-            }
-        }
-        return matrix;
-    }
 
-    public static void placeRandomBombs(int[][] matrix) {
+
+    public static int[][] generateBoard(int rows, int columns, int bombs) {
+        int[][] matrix = new int[rows][columns];
         Random random = new Random();
 
-        int bombs = 10;
         for(int bombCounter = 0; bombCounter < bombs; ) {
-            int randomX = random.nextInt(columns);
-            int randomY = random.nextInt(rows);
-            if(matrix[randomX][randomY] == EMPTY_CELL_VALUE) {
-                setCellValue(matrix, randomX, randomY, BOMB_VALUE);
+            int randomX = random.nextInt(columns), randomY = random.nextInt(rows);
+            if(matrix[randomX][randomY] != BOMB_VALUE) {
+                matrix[randomX][randomY] = BOMB_VALUE;
+                //setCellValue(matrix, randomX, randomY, BOMB_VALUE);
                 bombCounter++;
             }
         }
+        printMatrix(matrix);
+        placeNumbers(matrix, rows, columns);
+        return matrix;
     }
 
-    public static void setCellValue(int[][] matrix, int x, int y, int value) {
-        matrix[x][y] = value;
-    }
+//    public static void setCellValue(int[][] matrix, int x, int y, int value) {
+//        matrix[x][y] = value;
+//    }
 
     public static void printMatrix(int[][] matrix) {
         for(int[] row : matrix) {
@@ -54,10 +48,12 @@ public class Functionality {
         }
     }
 
-    public static void placeNumbers(int[][] matrix) {
-        for(int x = 0; x < matrix[0].length; x++) {
-            for(int y = 0; y < matrix.length; y++) {
-                matrix[x][y] = checkCell(matrix, x, y);
+    public static void placeNumbers(int[][] matrix, int rows, int columns) {
+        for(int x = 0; x < columns; x++) {
+            for(int y = 0; y < rows; y++) {
+                System.out.println(                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 );
+                if(matrix[x][y] != BOMB_VALUE)
+                    matrix[x][y] = checkCell(matrix, x, y, rows, columns);
             }
         }
     }
@@ -73,7 +69,7 @@ public class Functionality {
     }
 
     private static int checkTopRight(int[][] matrix, int x, int y) {
-        return (matrix[x-1][y+1] == BOMB_VALUE) ? 1 : 0;
+        return (matrix[x+1][y-1] == BOMB_VALUE) ? 1 : 0;
     }
 
     private static int checkRight(int[][] matrix, int x, int y) {
@@ -99,11 +95,12 @@ public class Functionality {
         return (matrix[x-1][y-1] == BOMB_VALUE) ? 1 : 0;
     }
 
-    private static int checkCell(int[][] matrix, int x, int y) {
-
+    private static int checkCell(int[][] matrix, int x, int y, int rows, int columns) {
+        rows--;
+        columns--;
         if(x == 0 && y == 0)
             return (checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y));
-        else if(x > 0 && x <columns && y == 0)
+        else if(x > 0 && x < columns && y == 0)
             return (checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y));
         else if(x == columns && y == 0)
             return (checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y));
@@ -120,7 +117,7 @@ public class Functionality {
         else if(x > 0 && x < columns && y > 0 && y < rows)
             return (checkTop(matrix, x, y) + checkTopRight(matrix, x, y) + checkRight(matrix, x, y) + checkBottomRight(matrix, x, y) + checkBottom(matrix, x, y) + checkBottomLeft(matrix, x, y) + checkLeft(matrix, x, y) + checkTopLeft(matrix, x, y));
         else
-            return 0;
+            return EMPTY_CELL_VALUE;
     }
 
 
