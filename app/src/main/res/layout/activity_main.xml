@@ -5,17 +5,35 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
+
         <GridView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/field_grid_view"
-            android:numColumns="auto_fit"
-            android:horizontalSpacing="0dp"
+            android:numColumns="8"
+            android:horizontalSpacing="0px"
             android:verticalSpacing="0dp"
             android:stretchMode="columnWidth"
-            android:columnWidth="45dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
         </GridView>
+
+    </LinearLayout>
+
+
 
 
 </RelativeLayout>
