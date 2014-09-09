@@ -9,15 +9,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/field_grid_view"
-            android:columnWidth="90dp"
-            android:stretchMode="columnWidth"
-            android:gravity="center"
             android:numColumns="auto_fit"
-            android:verticalSpacing="2dp"
-            android:horizontalSpacing="2dp">
-
-
-            </GridView>
+            android:horizontalSpacing="0dp"
+            android:verticalSpacing="0dp"
+            android:stretchMode="columnWidth"
+            android:columnWidth="45dp"
+            android:gravity="center">
+        </GridView>
 
 
 </RelativeLayout>

@@ -12,9 +12,6 @@ import android.widget.ImageView;
  */
 public class ImageCellAdapter extends BaseAdapter {
     private Context mContext;
-    public ImageCellAdapter(MainActivity mainActivity) {
-
-    }
 
     // Constructor
     public ImageCellAdapter(Context c) {
@@ -22,7 +19,7 @@ public class ImageCellAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mThumbIds.length;
+        return 64;
     }
 
     public Object getItem(int position) {
@@ -36,12 +33,10 @@ public class ImageCellAdapter extends BaseAdapter {
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView;
-        //fillArray(mThumbIds, R.drawable.cell, 4);
         if (convertView == null) {
             imageView = new ImageView(mContext);
             imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
         } else {
             imageView = (ImageView) convertView;
         }
@@ -50,14 +45,4 @@ public class ImageCellAdapter extends BaseAdapter {
         return imageView;
     }
 
-    // Keep all Images in array
-    public Integer[] mThumbIds = {
-
-    };
-
-    private void fillArray(Integer[] array, Integer value, int amount) {
-        for(int counter = 0; counter < amount; counter++) {
-            array[counter] = value;
-        }
-    }
 }
