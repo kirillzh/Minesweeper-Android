@@ -59,6 +59,7 @@ public class Functionality {
     }
 
 
+
     private static boolean checkCell(int[][] matrix, int x, int y) {
         return matrix[x][y] == BOMB_VALUE;
     }
