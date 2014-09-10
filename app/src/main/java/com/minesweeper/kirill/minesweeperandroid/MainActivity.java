@@ -21,6 +21,7 @@ public class MainActivity extends Activity {
 
         GridView fieldGridView = (GridView) findViewById(R.id.field_grid_view);
         fieldGridView.setAdapter(new ImageCellAdapter(this));
+//        fieldGridView[0][1].set
 
         fieldGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -29,6 +30,8 @@ public class MainActivity extends Activity {
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

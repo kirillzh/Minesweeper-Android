@@ -32,8 +32,11 @@ public class Functionality {
         }
         printMatrix(matrix);
         placeNumbers(matrix, rows, columns);
+
         return matrix;
     }
+
+
 
 //    public static void setCellValue(int[][] matrix, int x, int y, int value) {
 //        matrix[x][y] = value;

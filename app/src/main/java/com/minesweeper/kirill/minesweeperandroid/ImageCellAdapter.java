@@ -7,16 +7,22 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import static com.minesweeper.kirill.minesweeperandroid.Functionality.generateBoard;
+
 /**
  * Created by kirill on 9/7/14.
  */
 public class ImageCellAdapter extends BaseAdapter {
     private Context mContext;
+    private int[][] matrix;
 
     // Constructor
     public ImageCellAdapter(Context c) {
+        matrix = generateBoard(8, 8, 10);
         mContext = c;
     }
+
+
 
     public int getCount() {
         return Functionality.rows * Functionality.columns;
@@ -41,6 +47,7 @@ public class ImageCellAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
+        System.out.println(position);
         imageView.setImageResource(R.drawable.cell);
         return imageView;
     }
