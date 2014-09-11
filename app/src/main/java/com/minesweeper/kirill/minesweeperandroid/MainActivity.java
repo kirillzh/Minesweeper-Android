@@ -1,7 +1,6 @@
 package com.minesweeper.kirill.minesweeperandroid;
 
 import android.app.Activity;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -14,9 +13,6 @@ import static com.minesweeper.kirill.minesweeperandroid.ImageCellAdapter.getCoor
 
 
 public class MainActivity extends Activity {
-
-    GLSurfaceView mySurface;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
