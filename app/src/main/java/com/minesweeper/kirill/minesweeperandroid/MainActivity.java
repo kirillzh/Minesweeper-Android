@@ -26,14 +26,14 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GridView fieldGridView = (GridView) findViewById(R.id.field_grid_view);
+        final GridView fieldGridView = (GridView) findViewById(R.id.field_grid_view);
         fieldGridView.setAdapter(new ImageCellAdapter(this));
 
 
         fieldGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                openCell(view, matrix, position);
+                openCell(fieldGridView, view, matrix, position);
             }
         });
 
@@ -72,7 +72,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void openCell(View view, int[][] matrix, int position) {
+    public void openCell(GridView fieldGridView, View view, int[][] matrix, int position) {
         int x = getCoordinatesByPosition(position, columns)[0];
         int y = getCoordinatesByPosition(position, columns)[1];
         int value = matrix[x][y];
@@ -108,7 +108,7 @@ public class MainActivity extends Activity {
                 break;
             case 9:
                 imageView.setImageResource(R.drawable.bomb);
-                imageView.setClickable(false);
+                fieldGridView.setOnItemClickListener(null);
                 //openAllCells(view, matrix);
                 break;
         }
