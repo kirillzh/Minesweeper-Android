@@ -34,7 +34,7 @@ public class MainActivity extends Activity {
                 int y = getCoordinatesByPosition(position, columns)[1];
                 int value = ImageCellAdapter.matrix[x][y];
 
-                ImageView imageView = (ImageView) view.findViewById(imageId);
+                ImageView imageView = (ImageView) view;
 
                 switch (value) {
                     case 0:
