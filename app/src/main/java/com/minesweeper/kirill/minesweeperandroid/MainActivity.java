@@ -29,13 +29,11 @@ public class MainActivity extends Activity {
                 int x = getCoordinatesByPosition(position, columns)[0];
                 int y = getCoordinatesByPosition(position, columns)[1];
                 int value = matrix[x][y];
-                System.out.println(value);
 
                 ImageView imageView = (ImageView) view;
-
                 switch (value) {
                     case 0:
-                        imageView.setImageResource(R.drawable.cell);
+                        imageView.setImageResource(R.drawable.empty_cell);
                         break;
                     case 1:
                         imageView.setImageResource(R.drawable.num1);
