@@ -8,14 +8,15 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import static com.minesweeper.kirill.minesweeperandroid.Functionality.columns;
-import static com.minesweeper.kirill.minesweeperandroid.ImageCellAdapter.getCoordinatesByPosition;
+import static com.minesweeper.kirill.minesweeperandroid.Functionality.*;
 
 
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final int[][] matrix = generateBoard(8, 8, 10);
+        printMatrix(matrix);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -27,42 +28,59 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 int x = getCoordinatesByPosition(position, columns)[0];
                 int y = getCoordinatesByPosition(position, columns)[1];
-                int value = ImageCellAdapter.matrix[x][y];
+                int value = matrix[x][y];
+                System.out.println(value);
 
                 ImageView imageView = (ImageView) view;
 
                 switch (value) {
                     case 0:
                         imageView.setImageResource(R.drawable.cell);
+                        break;
                     case 1:
                         imageView.setImageResource(R.drawable.num1);
+                        break;
                     case 2:
                         imageView.setImageResource(R.drawable.num2);
+                        break;
                     case 3:
                         imageView.setImageResource(R.drawable.num3);
+                        break;
                     case 4:
                         imageView.setImageResource(R.drawable.num4);
+                        break;
                     case 5:
                         imageView.setImageResource(R.drawable.num5);
+                        break;
                     case 6:
                         imageView.setImageResource(R.drawable.num6);
+                        break;
                     case 7:
                         imageView.setImageResource(R.drawable.num7);
+                        break;
                     case 8:
                         imageView.setImageResource(R.drawable.num8);
+                        break;
                     case 9:
                         imageView.setImageResource(R.drawable.bomb);
+                        break;
                 }
             }
         });
     }
 
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public static int getPositionByCoordinates(int x, int y, int columns) {
+        return (x * columns + y);
+    }
+
+    public static int[] getCoordinatesByPosition(int position, int columns) {
+        return new int[]{position / columns, position % columns};
     }
 
 }

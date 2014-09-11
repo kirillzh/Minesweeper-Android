@@ -7,18 +7,14 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
-import static com.minesweeper.kirill.minesweeperandroid.Functionality.generateBoard;
-
 /**
  * Created by kirill on 9/7/14.
  */
 public class ImageCellAdapter extends BaseAdapter {
     public Context mContext;
-    public static int[][] matrix;
 
     // Constructor
     public ImageCellAdapter(Context c) {
-        matrix = generateBoard(8, 8, 10);
         mContext = c;
     }
 
@@ -51,12 +47,5 @@ public class ImageCellAdapter extends BaseAdapter {
         return imageView;
     }
 
-    public static int getPositionByCoordinates(int x, int y, int columns) {
-        return (x * columns + y);
-    }
-
-    public static int[] getCoordinatesByPosition(int position, int columns) {
-        return new int[]{position / columns, position % columns};
-    }
 
 }

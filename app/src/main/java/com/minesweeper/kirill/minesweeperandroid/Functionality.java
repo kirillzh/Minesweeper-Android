@@ -30,9 +30,7 @@ public class Functionality {
                 bombCounter++;
             }
         }
-        printMatrix(matrix);
         placeNumbers(matrix, rows, columns);
-
         return matrix;
     }
 
