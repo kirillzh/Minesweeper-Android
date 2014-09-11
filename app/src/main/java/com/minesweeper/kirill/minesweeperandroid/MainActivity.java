@@ -29,7 +29,6 @@ public class MainActivity extends Activity {
         fieldGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                int imageId = (int) id;
                 int x = getCoordinatesByPosition(position, columns)[0];
                 int y = getCoordinatesByPosition(position, columns)[1];
                 int value = ImageCellAdapter.matrix[x][y];
