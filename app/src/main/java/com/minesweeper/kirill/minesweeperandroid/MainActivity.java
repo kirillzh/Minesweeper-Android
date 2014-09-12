@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import static com.minesweeper.kirill.minesweeperandroid.Functionality.bombs;
 import static com.minesweeper.kirill.minesweeperandroid.Functionality.columns;
 import static com.minesweeper.kirill.minesweeperandroid.Functionality.generateBoard;
+import static com.minesweeper.kirill.minesweeperandroid.Functionality.getCoordinatesByPosition;
 import static com.minesweeper.kirill.minesweeperandroid.Functionality.printMatrix;
 import static com.minesweeper.kirill.minesweeperandroid.Functionality.rows;
 
@@ -62,17 +63,14 @@ public class MainActivity extends Activity {
     }
 
 
-//    public static int getPositionByCoordinates(int x, int y, int columns) {
-//        return (x * columns + y);
-//    }
-
-
-    public static int[] getCoordinatesByPosition(int position, int columns) {
-        return new int[]{position % columns, position / columns};
+    public static int getPositionByCoordinates(int x, int y) {
+        return (x * columns + y);
     }
 
 
-    public void openCell(GridView fieldGridView, View view, int[][] matrix, int position) {
+
+
+    public static void openCell(GridView fieldGridView, View view, int[][] matrix, int position) {
         int x = getCoordinatesByPosition(position, columns)[0];
         int y = getCoordinatesByPosition(position, columns)[1];
         int value = matrix[y][x];
@@ -115,7 +113,7 @@ public class MainActivity extends Activity {
     }
 
 
-    public void openAllCells(View view, int[][] matrix) {
+    public static void openAllCells(View view, int[][] matrix) {
         int positions = rows * columns;
         for (int position = 0; position < positions; position++) {
             int x = getCoordinatesByPosition(position, columns)[0];
@@ -162,7 +160,5 @@ public class MainActivity extends Activity {
     int topRightCorner = columns - 1;
     int bottomLeftCorner = 0;
 
-    public static void openEmptyCells(View view, int[][] matrix, int position) {
 
-    }
 }
