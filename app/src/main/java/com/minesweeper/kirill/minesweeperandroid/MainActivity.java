@@ -1,6 +1,7 @@
 package com.minesweeper.kirill.minesweeperandroid;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -17,10 +18,11 @@ public class MainActivity extends Activity {
     private static final int GAME_COLUMNS = 8;
     private static final int GAME_MINES = 10;
     private static final String[] CELL_STATE_LABELS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "B"};
-    private int[] mGameBoard;
+    private static int[] mGameBoard;
     private int[] mVisibleBoard;
     private GridView mGameBoardGridView;
     private BaseAdapter mGameBoardAdapter;
+    private Context context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,12 +34,16 @@ public class MainActivity extends Activity {
         mGameBoardAdapter = new BaseAdapter() {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                if (convertView == null)
-                    convertView = getLayoutInflater().inflate(R.layout.textview_cell, parent, false);
-                TextView textView = (TextView) convertView;
-                int visibleValue = mVisibleBoard[position];
-                textView.setText(visibleValue < 0 ? " " : CELL_STATE_LABELS[visibleValue]);
-                return textView;
+                ImageView imageView;
+                if (convertView == null) {
+                    imageView = new ImageView(context);
+                    imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+                    imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                } else {
+                    imageView = (ImageView) convertView;
+                }
+                imageView.setImageResource(R.drawable.cell);
+                return imageView;
             }
             @Override
             public long getItemId(int position) {
@@ -58,9 +64,16 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mVisibleBoard[position] > 0)
                     return;
+                ImageView imageView = new ImageView(context);
+                imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+
+ //             imageView.setImageResource(R.drawable.cell);
                 int state = getCellState(mGameBoard, position);
-                mVisibleBoard[position] = state;
-                mGameBoardAdapter.notifyDataSetChanged();
+                setImageResource(imageView, state);
+
+                //mVisibleBoard[position] = state;
+                //mGameBoardAdapter.notifyDataSetChanged();
             }
         });
         mGameBoardGridView.setNumColumns(GAME_COLUMNS);
@@ -91,5 +104,40 @@ public class MainActivity extends Activity {
             }
         }
         return mines;
+    }
+
+    public static void setImageResource(ImageView imageView, int state) {
+        switch (state) {
+            case 0:
+                imageView.setImageResource(R.drawable.empty_cell);
+                break;
+            case 1:
+                imageView.setImageResource(R.drawable.num1);
+                break;
+            case 2:
+                imageView.setImageResource(R.drawable.num2);
+                break;
+            case 3:
+                imageView.setImageResource(R.drawable.num3);
+                break;
+            case 4:
+                imageView.setImageResource(R.drawable.num4);
+                break;
+            case 5:
+                imageView.setImageResource(R.drawable.num5);
+                break;
+            case 6:
+                imageView.setImageResource(R.drawable.num6);
+                break;
+            case 7:
+                imageView.setImageResource(R.drawable.num7);
+                break;
+            case 8:
+                imageView.setImageResource(R.drawable.num8);
+                break;
+            case 9:
+                imageView.setImageResource(R.drawable.bomb);
+                break;
+        }
     }
 }
