@@ -14,15 +14,15 @@ import android.widget.ImageView;
 import java.util.Arrays;
 import java.util.Random;
 public class MainActivity extends Activity {
-    private static final int GAME_ROWS = 8;
-    private static final int GAME_COLUMNS = 8;
+    protected static final int GAME_ROWS = 8;
+    protected static final int GAME_COLUMNS = 8;
     private static final int GAME_MINES = 10;
     private static final String[] CELL_STATE_LABELS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "B"};
     private static int[] mGameBoard;
     private int[] mVisibleBoard;
     private GridView mGameBoardGridView;
     private BaseAdapter mGameBoardAdapter;
-    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,9 +34,8 @@ public class MainActivity extends Activity {
         mGameBoardAdapter = new BaseAdapter() {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
-                ImageView imageView;
+                ImageView imageView = new ImageView(mContext);
                 if (convertView == null) {
-                    imageView = new ImageView(context);
                     imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
                     imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 } else {
@@ -64,7 +63,6 @@ public class MainActivity extends Activity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (mVisibleBoard[position] > 0)
                     return;
-                ImageView imageView = new ImageView(context);
                 imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 

@@ -1,8 +1,8 @@
 //package com.minesweeper.kirill.minesweeperandroid;
 //
 ///**
-// * Created by kirill on 9/14/14.
-// */
+//* Created by kirill on 9/14/14.
+//*/
 //
 //import android.view.View;
 //
