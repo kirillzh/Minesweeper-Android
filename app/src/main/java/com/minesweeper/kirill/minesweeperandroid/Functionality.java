@@ -125,7 +125,7 @@
 //        return new int[]{position % columns, position / columns};
 //    }
 //
-//    public static int openEmptyCells(View view, int[][] matrix, int position) {
+    //    public static int openEmptyCells(View view, int[][] matrix, int position) {
 //        int x = getCoordinatesByPosition(position, columns)[0];
 //        int y = getCoordinatesByPosition(position, columns)[1];
 //        int value = matrix[y][x];
