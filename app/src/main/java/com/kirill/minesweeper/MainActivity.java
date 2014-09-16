@@ -18,15 +18,17 @@ import java.util.Random;
  */
 public class MainActivity extends Activity {
 
-    protected static final int GAME_ROWS = 8;
-    protected static final int GAME_COLUMNS = 8;
-    private static final int GAME_MINES = 10;
-    private static final String[] CELL_STATE_LABELS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    protected static final int GAME_ROWS = 12;
+    protected static final int GAME_COLUMNS = 12;
+    private static final int GAME_MINES = 20;
+    //private static final String[] CELL_STATE_LABELS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private static int[] gameBoard;
     private int[] visibleGameBoard;
     private static Context context;
     private static GridView gameBoardGridView;
     private static BaseAdapter gameBoardAdapter;
+    protected static int CELL_WIDTH = 100;
+    protected static int CELL_HEIGHT = 100;
 
     private static int[] drawableCells = new int[]{
             R.drawable.empty_cell,
@@ -50,12 +52,15 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         MainActivity.context = getApplicationContext();
 
         gameBoard = generateRandomBoard(GAME_ROWS, GAME_COLUMNS, GAME_MINES);
         visibleGameBoard = new int[GAME_ROWS * GAME_COLUMNS];
         Arrays.fill(visibleGameBoard, -1);
         setContentView(R.layout.activity_main);
+
+
         gameBoardGridView = (GridView) findViewById(R.id.gameboard_gridview);
         gameBoardAdapter = new ImageAdapter();
         gameBoardGridView.setAdapter(gameBoardAdapter);
@@ -65,7 +70,7 @@ public class MainActivity extends Activity {
                 if (visibleGameBoard[position] > 0)
                     return;
                 ImageView imageView = (ImageView) view;
-                imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+                imageView.setLayoutParams(new GridView.LayoutParams(CELL_WIDTH, CELL_HEIGHT));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 //             imageView.setImageResource(R.drawable.cell);

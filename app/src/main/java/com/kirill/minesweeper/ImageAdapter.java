@@ -30,7 +30,7 @@ public class ImageAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(MainActivity.getAppContext());
         if (convertView == null) {
-            imageView.setLayoutParams(new GridView.LayoutParams(120, 120));
+            imageView.setLayoutParams(new GridView.LayoutParams(MainActivity.CELL_WIDTH, MainActivity.CELL_HEIGHT));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         } else {
             imageView = (ImageView) convertView;
