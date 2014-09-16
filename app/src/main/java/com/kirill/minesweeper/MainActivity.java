@@ -3,6 +3,7 @@ package com.kirill.minesweeper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -40,9 +41,11 @@ public class MainActivity extends Activity {
             R.drawable.bomb
     };
 
+
     public static Context getAppContext() {
         return MainActivity.context;
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +89,8 @@ public class MainActivity extends Activity {
             board[random.nextInt(size)] = 1;
         return board;
     }
+
+
     public static int getCellState(int[] board, int position) {
         if (board[position] == 1)
             return 9;
@@ -105,7 +110,31 @@ public class MainActivity extends Activity {
         return mines;
     }
 
+
     public static void setImageResource(ImageView imageView, int state) {
-        imageView.setImageResource(drawableCells[state]);
+        if(state ==  9) {
+            lostGame(gameBoardGridView);
+            //imageView.setImageResource(drawableCells[state]);
+
+        } else if(state == 0) {
+            imageView.setImageResource(drawableCells[state]);
+        } else {
+            imageView.setImageResource(drawableCells[state]);
+        }
+    }
+
+
+    public static void lostGame(GridView gridView) {
+        Log.e("WARN", "You lost!");
+        for(int position = 0; position < GAME_COLUMNS * GAME_ROWS; position++) {
+            ImageView imageView = (ImageView) gridView.getChildAt(position);
+            int state = getCellState(gameBoard, position);
+            imageView.setImageResource(drawableCells[state]);
+        }
+    }
+
+
+    public static void openEmptyCells() {
+
     }
 }

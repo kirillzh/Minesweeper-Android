@@ -11,8 +11,6 @@ import android.widget.ImageView;
  */
 public class ImageAdapter extends BaseAdapter {
 
-
-
     @Override
     public int getCount() {
         return MainActivity.GAME_ROWS * MainActivity.GAME_COLUMNS;
@@ -39,10 +37,10 @@ public class ImageAdapter extends BaseAdapter {
         }
         imageView.setImageResource(R.drawable.cell);
         return imageView;
-
     }
+}
 
-    //    @Override
+//    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        matrix = generateBoard(rows, columns, bombs);
 //        printMatrix(matrix);
@@ -62,5 +60,3 @@ public class ImageAdapter extends BaseAdapter {
 //
 //        listenToRestartButton();
 //    }
-
-}
