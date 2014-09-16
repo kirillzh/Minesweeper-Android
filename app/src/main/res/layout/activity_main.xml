@@ -8,7 +8,6 @@
         android:id="@+id/gameboard_gridview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
         android:gravity="center"
         android:horizontalSpacing="1dp"
         android:layout_marginRight="20dp"
