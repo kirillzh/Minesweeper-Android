@@ -4,42 +4,16 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity" >
 
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
-
-        <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
-                android:id="@+id/linearLayout_gridtableLayout"
-                android:layout_width="300dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
-
-                <GridView
-                    android:id="@+id/gameboard_gridview"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:horizontalSpacing="1dp"
-                    android:columnWidth="120dp"
-                    android:scrollbarAlwaysDrawHorizontalTrack="true"
-                    android:scrollbarAlwaysDrawVerticalTrack="true"
-                    android:stretchMode="columnWidth"
-                    android:verticalSpacing="1dp"
-                    android:scrollbars="vertical"
-                    />
-
-            </LinearLayout>
-        </FrameLayout>
-    </HorizontalScrollView>
-
-
-
-
-
+    <GridView
+        android:id="@+id/gameboard_gridview"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:horizontalSpacing="1dp"
+        android:scrollbarAlwaysDrawHorizontalTrack="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="1dp"/>
 
 </LinearLayout>
 
