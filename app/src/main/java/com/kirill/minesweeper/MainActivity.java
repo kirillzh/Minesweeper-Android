@@ -3,7 +3,7 @@ package com.kirill.minesweeper;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Vibrator;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
@@ -23,12 +23,13 @@ public class MainActivity extends Activity {
     private static final int GAME_MINES = 20;
     //private static final String[] CELL_STATE_LABELS = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
     private static int[] gameBoard;
-    private int[] visibleGameBoard;
+    private static boolean[] visibleGameBoard;
     private static Context context;
     private static GridView gameBoardGridView;
     private static BaseAdapter gameBoardAdapter;
     protected static int CELL_WIDTH = 100;
     protected static int CELL_HEIGHT = 100;
+    private static boolean LOST = false;
 
     private static int[] drawableCells = new int[]{
             R.drawable.empty_cell,
@@ -56,8 +57,8 @@ public class MainActivity extends Activity {
         MainActivity.context = getApplicationContext();
 
         gameBoard = generateRandomBoard(GAME_ROWS, GAME_COLUMNS, GAME_MINES);
-        visibleGameBoard = new int[GAME_ROWS * GAME_COLUMNS];
-        Arrays.fill(visibleGameBoard, -1);
+        visibleGameBoard = new boolean[GAME_ROWS * GAME_COLUMNS];
+        Arrays.fill(visibleGameBoard, false);
         setContentView(R.layout.activity_main);
 
 
@@ -67,16 +68,17 @@ public class MainActivity extends Activity {
         gameBoardGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (visibleGameBoard[position] > 0)
+                if (cellIsOpen(position))
                     return;
+                else
+                    openCell(position);
+
                 ImageView imageView = (ImageView) view;
                 imageView.setLayoutParams(new GridView.LayoutParams(CELL_WIDTH, CELL_HEIGHT));
                 imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-                //             imageView.setImageResource(R.drawable.cell);
-                int state = getCellState(gameBoard, position);
-                setImageResource(imageView, state);
 
+                //imageView.setImageResource(R.drawable.cell);
                 //mVisibleBoard[position] = state;
                 //mGameBoardAdapter.notifyDataSetChanged();
             }
@@ -96,8 +98,8 @@ public class MainActivity extends Activity {
     }
 
 
-    public static int getCellState(int[] board, int position) {
-        if (board[position] == 1)
+    private static int getCellState(int position) {
+        if (gameBoard[position] == 1)
             return 9;
         int x = position / GAME_COLUMNS;
         int y = position % GAME_COLUMNS;
@@ -108,7 +110,7 @@ public class MainActivity extends Activity {
             for (int col = y - 1; col < y + 2; col++) {
                 if (col < 0 || col >= GAME_COLUMNS)
                     continue;
-                if (board[(row * GAME_COLUMNS) + col] == 1)
+                if (gameBoard[(row * GAME_COLUMNS) + col] == 1)
                     mines++;
             }
         }
@@ -116,30 +118,71 @@ public class MainActivity extends Activity {
     }
 
 
-    public static void setImageResource(ImageView imageView, int state) {
-        if(state ==  9) {
-            lostGame(gameBoardGridView);
-            //imageView.setImageResource(drawableCells[state]);
+    public static void openCellImage(int position) {
+        visibleGameBoard[position] = true;
+        int state = getCellState(position);
+        ImageView imageView = getImageView(position);
+        imageView.setImageResource(drawableCells[state]);
+    }
 
-        } else if(state == 0) {
-            imageView.setImageResource(drawableCells[state]);
+
+    public static void openCell(int position) {
+        openCellImage(position);
+
+        if(LOST) {
+            return;
         } else {
-            imageView.setImageResource(drawableCells[state]);
+            int state = getCellState(position);
+            if (state == 9) {
+                lostGame();
+            } else if (state == 0) {
+                openEmptyCells(position);
+            }
         }
     }
 
 
-    public static void lostGame(GridView gridView) {
-        Log.e("WARN", "You lost!");
+    public static void lostGame() {
+        LOST = true;
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
         for(int position = 0; position < GAME_COLUMNS * GAME_ROWS; position++) {
-            ImageView imageView = (ImageView) gridView.getChildAt(position);
-            int state = getCellState(gameBoard, position);
-            imageView.setImageResource(drawableCells[state]);
+            if(!cellIsOpen(position))
+                openCell(position);
         }
     }
 
 
-    public static void openEmptyCells() {
+    private static ImageView getImageView(int position) {
+        return (ImageView) gameBoardGridView.getChildAt(position);
+    }
 
+
+    public static void openEmptyCells(int position) {
+        int x = position / GAME_COLUMNS;
+        int y = position % GAME_COLUMNS;
+        for (int row = x - 1; row < x + 2; row++) {
+            if (row < 0 || row >= GAME_ROWS)
+                continue;
+            for (int col = y - 1; col < y + 2; col++) {
+                if (col < 0 || col >= GAME_COLUMNS)
+                    continue;
+                int newPosition = row * GAME_COLUMNS + col;
+
+                if(!cellIsOpen(newPosition)) {
+                    if (getCellState(newPosition) == 0  ) {
+                        openCellImage(newPosition);
+                        openEmptyCells(newPosition);
+                    } else {
+                        openCellImage(newPosition);
+                    }
+                }
+            }
+        }
+    }
+
+    private static boolean cellIsOpen(int position) {
+        return visibleGameBoard[position];
     }
 }
